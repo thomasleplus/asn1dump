@@ -20,7 +20,7 @@ char *file;
 
 int main(int argc, char **argv)
 {
-	int c, i;
+	int i;
 	FILE *data;
 	prog = argv[0];
 	for (i = 1; i < argc; i++) {
@@ -295,7 +295,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 							return 0;
 				}
 			} else {
-				sprintf(string, STRING_SIZE, "[%d] IMPLICIT", buffer[0] & 0x1F);
+				sprintf_s(string, STRING_SIZE, "[%d] IMPLICIT", buffer[0] & 0x1F);
 				printinfo(offset, buffer, size, level, string, b);
 				if (size)
 					if ((pos = printdata(pos, size, data)) == 0)
@@ -327,7 +327,7 @@ void printinfo(ulint offset, int *buffer, ulint size,
 {
 	char tmp[STRING_SIZE];
 	int i;
-	sprintf(tmp, STRING_SIZE, "%6lX", offset);
+	sprintf_s(tmp, STRING_SIZE, "%6lX", offset);
 	for (i = 0; tmp[i] == ' '; i++)
 		tmp[i] = '0';
 	fprintf(stdout, "%s: ", tmp);
