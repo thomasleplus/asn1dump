@@ -17,8 +17,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Install clang-tidy
       run: |
-      sudo apt update -y
-      sudo apt install clang-tidy
+        sudo apt update -y
+        sudo apt install clang-tidy
     - name: Run clang-tidy
       run: clang-tidy *.c
     - name: Build
