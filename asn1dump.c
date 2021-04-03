@@ -7,6 +7,8 @@
 
 #define TRUE 1
 #define FALSE 0
+#define BUFFER_SIZE 6
+#define STRING_SIZE 14
 #define ulint unsigned long int
 
 ulint asn1parse (FILE *, ulint, int, int *);
@@ -28,7 +30,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		asn1parse(data, 0, 0, NULL);
-		if ((c = fgetc(data)) != EOF) {
+		if (fgetc(data) != EOF) {
 			fprintf(stderr, "%s: extra data remainig in %s\n", prog, file);
 			continue;
 		}
@@ -39,10 +41,10 @@ int main(int argc, char **argv)
 
 ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 {
-	int buffer[6];
+	int buffer[BUFFER_SIZE];
 	int b, c, header, tag, class, type;
 	ulint size, pos;
-	char string[14];
+	char string[STRING_SIZE];
 
 	if ((buffer[0] = fgetc(data)) == EOF) {
 		fprintf(stderr, "%s: %s: unexpected end of file\n", prog, file);
@@ -281,7 +283,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 			break;
 		} else if (class == 2) {
 			if (type) {
-				sprintf(string, "[%d]", buffer[0] & 0x1F);
+				sprintf_s(string, STRING_SIZE, "[%d]", buffer[0] & 0x1F);
 				printinfo(offset, buffer, size, level, string, b);
 				if (b) {
 					while (b)
@@ -293,7 +295,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 							return 0;
 				}
 			} else {
-				sprintf(string, "[%d] IMPLICIT", buffer[0] & 0x1F);
+				sprintf(string, STRING_SIZE, "[%d] IMPLICIT", buffer[0] & 0x1F);
 				printinfo(offset, buffer, size, level, string, b);
 				if (size)
 					if ((pos = printdata(pos, size, data)) == 0)
@@ -323,9 +325,9 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 void printinfo(ulint offset, int *buffer, ulint size,
 			   int level, char *name, int bool)
 {
-	char tmp[9];
+	char tmp[STRING_SIZE];
 	int i;
-	sprintf(tmp, "%6lX", offset);
+	sprintf(tmp, STRING_SIZE, "%6lX", offset);
 	for (i = 0; tmp[i] == ' '; i++)
 		tmp[i] = '0';
 	fprintf(stdout, "%s: ", tmp);
