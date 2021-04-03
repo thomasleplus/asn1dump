@@ -283,7 +283,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 			break;
 		} else if (class == 2) {
 			if (type) {
-				sprintf_s(string, STRING_SIZE, "[%d]", buffer[0] & 0x1F);
+				snprintf(string, STRING_SIZE, "[%d]", buffer[0] & 0x1F);
 				printinfo(offset, buffer, size, level, string, b);
 				if (b) {
 					while (b)
@@ -295,7 +295,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 							return 0;
 				}
 			} else {
-				sprintf_s(string, STRING_SIZE, "[%d] IMPLICIT", buffer[0] & 0x1F);
+				snprintf(string, STRING_SIZE, "[%d] IMPLICIT", buffer[0] & 0x1F);
 				printinfo(offset, buffer, size, level, string, b);
 				if (size)
 					if ((pos = printdata(pos, size, data)) == 0)
@@ -327,7 +327,7 @@ void printinfo(ulint offset, int *buffer, ulint size,
 {
 	char tmp[STRING_SIZE];
 	int i;
-	sprintf_s(tmp, STRING_SIZE, "%6lX", offset);
+	snprintf(tmp, STRING_SIZE, "%6lX", offset);
 	for (i = 0; tmp[i] == ' '; i++)
 		tmp[i] = '0';
 	fprintf(stdout, "%s: ", tmp);
