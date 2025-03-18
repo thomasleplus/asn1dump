@@ -2,4 +2,4 @@
 
 all: asn1dump.c
 	mkdir -p bin
-	gcc asn1dump.c -pedantic -ansi -Wall -O3 -o bin/asn1dump
+	gcc src/*.c -pedantic -ansi -Wall -O3 -o bin/asn1dump
