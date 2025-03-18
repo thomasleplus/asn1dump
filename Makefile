@@ -1,5 +1,8 @@
 # Asn1dump - Dump the structure of an ASN1 file.
 
-all: asn1dump.c
+all: src/asn1dump.c
 	mkdir -p bin
-	gcc src/*.c -pedantic -ansi -Wall -O3 -o bin/asn1dump
+	gcc src/asn1dump.c -pedantic -ansi -Wall -O3 -o bin/asn1dump
+
+clang-tidy: src/asn1dump.c
+	clang-tidy src/asn1dump.c
