@@ -1,37 +1,45 @@
+# Maven stuff #
+target/
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.tag
+release.properties
+.m2/
+
+# Eclipse stuff #
+.project
+.classpath
+.settings/
+build/
+
+# IntelliJ stuff #
+.idea/
+out/
+
+# Java Classes #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
 *.log
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 
-# Precompiled Headers
-*.gch
-*.pch
+# AWS
+.aws/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Git
+.git-credentials
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Docker
+.docker/
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
+# SSH
+.ssh/
 
 # =========================
 # Operating System Files

@@ -1,0 +1,77 @@
+---
+include:
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+
+stages:
+  - check
+  - build
+
+variables:
+  MAVEN_OPTS: >
+    -Dhttps.protocols=TLSv1.2
+    -Dmaven.repo.local=.m2/repository
+    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN
+    -Dorg.slf4j.simpleLogger.showDateTime=true
+    -Djava.awt.headless=true
+  MAVEN_CLI_OPTS: >
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    -DinstallAtEnd=true
+    -DdeployAtEnd=true
+
+cache:
+  paths:
+    - .m2/repository
+
+sast:
+  stage: check
+
+secret_detection:
+  stage: check
+
+OSV scanner:
+  image:
+    name: golang:latest
+  stage: check
+  before_script:
+    - "go install github.com/google/osv-scanner/cmd/osv-scanner@latest"
+  script:
+    - 'PATH="${PATH}:$(go env GOPATH)/bin" osv-scanner -r .'
+  timeout: 10 minutes
+
+maven check versions:
+  image:
+    name: leplusorg/maven-check-versions:3.9.9@sha256:abdd53328be1c87d7bf21b868d47d7934b28dfc66e168d9625877616ab14d6da
+  stage: check
+  variables:
+    IGNORED_VERSIONS: "(?i).+-(alpha|beta).+,(?i).+-m\\d+,(?i).+-rc\\d+"
+  script:
+    - "/opt/maven-check-versions.sh"
+  timeout: 10 minutes
+
+verify:jdk11:
+  stage: build
+  image: maven:3-openjdk-11-slim
+  script:
+    - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
+
+verify:jdk17:
+  stage: build
+  image: maven:3-openjdk-17-slim
+  script:
+    - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
+
+verify:jdk21:
+  stage: build
+  image: maven:3-eclipse-temurin-21-alpine
+  script:
+    - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
+
+verify:jdk24:
+  stage: build
+  image: maven:3-eclipse-temurin-24-alpine
+  script:
+    - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
