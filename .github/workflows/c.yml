@@ -22,14 +22,17 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set SOURCE_DATE_EPOCH
         run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> "${GITHUB_ENV}"
-      - name: Install clang-tidy
+      - name: Install linters
         shell: bash
         run: |
           sudo apt update -y
-          sudo apt install clang-tidy
+          sudo apt install clang-tidy cppcheck splint
       - name: Run clang-tidy
         shell: bash
         run: make clang-tidy
+      - name: Run cppcheck
+        shell: bash
+        run: make cppckeck
       - name: Run splint
         shell: bash
         run: make splint

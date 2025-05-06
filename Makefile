@@ -9,3 +9,6 @@ clang-tidy: src/asn1dump.c
 
 splint: src/asn1dump.c
 	splint -checks src/asn1dump.c
+
+cppcheck: src/asn1dump.c
+	cppcheck --check-level=exhaustive src/asn1dump.c
