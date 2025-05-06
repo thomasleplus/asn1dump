@@ -30,6 +30,9 @@ jobs:
       - name: Run clang-tidy
         shell: bash
         run: make clang-tidy
+      - name: Run splint
+        shell: bash
+        run: make splint
       - name: Build
         shell: bash
         run: make all

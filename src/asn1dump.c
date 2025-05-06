@@ -26,12 +26,12 @@ int main(int argc, char **argv)
 	for (i = 1; i < argc; i++) {
 		file = argv[i];
 		if ((data = fopen(argv[i], "rb")) == NULL) {
-			fprintf(stderr, "%s: can't read file %s\n", prog, file);
+			fprintf_s(stderr, "%s: can't read file %s\n", prog, file);
 			continue;
 		}
 		asn1parse(data, 0, 0, NULL);
 		if (fgetc(data) != EOF) {
-			fprintf(stderr, "%s: extra data remainig in %s\n", prog, file);
+			fprintf_s(stderr, "%s: extra data remainig in %s\n", prog, file);
 			continue;
 		}
 		fclose(data);
@@ -47,11 +47,11 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 	char string[STRING_SIZE];
 
 	if ((buffer[0] = fgetc(data)) == EOF) {
-		fprintf(stderr, "%s: %s: unexpected end of file\n", prog, file);
+		fprintf_s(stderr, "%s: %s: unexpected end of file\n", prog, file);
 		return 0;
 	}
 	if ((buffer[0] & 0x1F) == 0x1F) {
-		fprintf(stderr, "%s: %s: unsupported encoding identifier\n", prog, file);
+		fprintf_s(stderr, "%s: %s: unsupported encoding identifier\n", prog, file);
 		return 0;
 	}
 	tag = buffer[0] & 0x3F;
@@ -59,7 +59,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 	type = (buffer[0] & 0x20) ? TRUE : FALSE;
 
 	if ((buffer[1] = fgetc(data)) == EOF) {
-		fprintf(stderr, "%s: %s: unexpected end of file\n", prog, file);
+		fprintf_s(stderr, "%s: %s: unexpected end of file\n", prog, file);
 		return 0;
 	}
 	if (buffer[1] < 0x80) {
@@ -79,7 +79,7 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 		size = 0;
 		for (c = 0; c < buffer[1] - 0x80; c++) {
 			if ((buffer[2 + c] = fgetc(data)) == EOF) {
-				fprintf(stderr, "%s: %s: unexpected end of file\n", prog, file);
+				fprintf_s(stderr, "%s: %s: unexpected end of file\n", prog, file);
 				return 0;
 			}
 			size *= 0x100;
@@ -90,12 +90,12 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 		pos = offset + header;
 		buffer[header] = EOF;
 	} else {
-		fprintf(stderr, "%s: %s: encoding length too long\n", prog, file);
+		fprintf_s(stderr, "%s: %s: encoding length too long\n", prog, file);
 		return 0;
 	}
   
 	if (!type && b) {
-		fprintf(stderr, "%s: %s: unexpected undefined length\n", prog, file);
+		fprintf_s(stderr, "%s: %s: unexpected undefined length\n", prog, file);
 		return 0;
 	}
 
@@ -122,10 +122,10 @@ ulint asn1parse(FILE *data, ulint offset, int level, int *bool)
 			printinfo(offset, buffer, size, level, "BitString", FALSE);
 			if (size) {
 				if ((c = fgetc(data)) == EOF) {
-					fprintf(stderr, "%s: %s: unexpected end of file\n", prog, file);
+					fprintf_s(stderr, "%s: %s: unexpected end of file\n", prog, file);
 					return 0;
 				}
-				fprintf(stdout, "                               : %s%X (unused bits)\n",
+				fprintf_s(stdout, "                               : %s%X (unused bits)\n",
 						c > 0x0F ? "" : "0", c);
 				if ((pos = printdata(pos + 1, size - 1, data)) == 0)
 					return 0;
@@ -330,21 +330,21 @@ void printinfo(ulint offset, int *buffer, ulint size,
 	snprintf(tmp, STRING_SIZE, "%6lX", offset);
 	for (i = 0; tmp[i] == ' '; i++)
 		tmp[i] = '0';
-	fprintf(stdout, "%s: ", tmp);
+	fprintf_s(stdout, "%s: ", tmp);
 	for (i = 0; buffer[i] != EOF; i++)
-		fprintf(stdout, "%s%X ", buffer[i] > 0x0F ? "" : "0", buffer[i]);
+		fprintf_s(stdout, "%s%X ", buffer[i] > 0x0F ? "" : "0", buffer[i]);
 	for (; i < 5; i ++)
-		fprintf(stdout, "   ");
+		fprintf_s(stdout, "   ");
 	if (bool) {
-		fprintf(stdout, "                  : ");
+		fprintf_s(stdout, "                  : ");
 		for (i = 0; i < level; i++)
-			fprintf(stdout, ". ");
-		fprintf(stdout, "%s (size undefined)\n", name);
+			fprintf_s(stdout, ". ");
+		fprintf_s(stdout, "%s (size undefined)\n", name);
 	} else {
-		fprintf(stdout, "%8lu: ", size);
+		fprintf_s(stdout, "%8lu: ", size);
 		for (i = 0; i < level; i++)
-			fprintf(stdout, ". ");
-		fprintf(stdout, "%s\n", name);
+			fprintf_s(stdout, ". ");
+		fprintf_s(stdout, "%s\n", name);
 	}
 	return;
 }
@@ -355,16 +355,16 @@ ulint printdata(ulint offset, ulint size, FILE *data)
 	ulint n = 0;
 	while (n++ < size) {
 		if (n % 16 == 1)
-			fprintf(stdout, "                               : ");
+			fprintf_s(stdout, "                               : ");
 		if ((c = fgetc(data)) == EOF) {
-			fprintf(stderr, "%s: %s: unexpected end of file\n", prog, file);
+			fprintf_s(stderr, "%s: %s: unexpected end of file\n", prog, file);
 			return 0;
 		}
-		fprintf(stdout, "%s%X", c > 0x0F ? "" : "0", c);
+		fprintf_s(stdout, "%s%X", c > 0x0F ? "" : "0", c);
 		if (n % 16 == 0 || n == size)
-			fprintf(stdout, "\n");
+			fprintf_s(stdout, "\n");
 		else
-			fprintf(stdout, " ");
+			fprintf_s(stdout, " ");
 	}
 	return offset + size;
 }
