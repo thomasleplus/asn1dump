@@ -10,10 +10,11 @@ import org.bouncycastle.asn1.util.ASN1Dump;
 /** Main class. */
 public final class Main {
 
+  @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
   public static void main(final String[] args) throws IOException {
     for (final String arg : args) {
       try (FileInputStream fis = new FileInputStream(new File(arg));
-           ASN1InputStream asn1InputStream = new ASN1InputStream(fis)) {
+          ASN1InputStream asn1InputStream = new ASN1InputStream(fis)) {
         ASN1Primitive obj;
         while ((obj = asn1InputStream.readObject()) != null) {
           System.out.println(ASN1Dump.dumpAsString(obj, true));
