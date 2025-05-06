@@ -1,10 +1,11 @@
 package org.leplus.asn1dump;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 class MainTest {
 

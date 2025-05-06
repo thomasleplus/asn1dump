@@ -1,10 +1,11 @@
 package org.leplus.asn1dump;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.*;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.util.ASN1Dump;
+
+import java.io.*;
 
 /** Main class. */
 public final class Main {
