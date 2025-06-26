@@ -1,0 +1,104 @@
+Sequence
+    Sequence
+        Tagged [CONTEXT 0]
+            Integer(2)
+        Integer(166129356476704345391986644047206454194698629)
+        Sequence
+            ObjectIdentifier(1.2.840.113549.1.1.11)
+            NULL
+        Sequence
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.6)
+                    PrintableString(US) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.10)
+                    PrintableString(Amazon) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.3)
+                    PrintableString(Amazon Root CA 1) 
+        Sequence
+            UTCTime(220823222604GMT+00:00) 
+            UTCTime(300823222604GMT+00:00) 
+        Sequence
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.6)
+                    PrintableString(US) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.10)
+                    PrintableString(Amazon) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.3)
+                    PrintableString(Amazon RSA 2048 M03) 
+        Sequence
+            Sequence
+                ObjectIdentifier(1.2.840.113549.1.1.1)
+                NULL
+            DER Bit String[270, 0]
+                3082010a0282010100b77fa55928f2fb8ce3be537f8e4757705b0a5fc1f49cbc    0Y(SGWp[_
+                f46d4246416370f634e9603d952fbb7566d403b1ad5942a892cafaf6128cc1c3    mBFAcp4`=/ufYB
+                2c369c65c3b6f78de5c5831074f7f9e66a57005ad9cbcc5f8b6832840390d09a    ,6etjWZ_h2
+                f2b3ba1d677c87ea1222824129975e1d3d5ecf9d3bb726e6a6da2f6861349092    g|"A)^=^;&/ha4
+                01e8dc8b072f38580536010c478db09ba288147b105b6f23840fb5bbf334a7a7    /8X6G{[o#4
+                d5c117ae12065f2df771f363f1d0b25c9379524f7101fc97db76c74ecf3ce0e5    _-qc\yROqvN<
+                8918d5d7eea9ff32e5f51e67b0b35976d38ee8f05ff4e8be6796280dfa54b0b3    2gYv_g(T
+                ef96b35bab4336e0e7eba14ea400d967da2655a17a06a34988b31597a3f7fdcd    [C6Ng&UzI
+                0e894302e99e4e7ca70203010001                                        CN|
+        Tagged [CONTEXT 3]
+            Sequence
+                Sequence
+                    ObjectIdentifier(2.5.29.19)
+                    Boolean(true)
+                    DER Octet String[8]
+                        30060101ff020100                                                    0
+                Sequence
+                    ObjectIdentifier(2.5.29.15)
+                    Boolean(true)
+                    DER Octet String[4]
+                        03020186                                                            
+                Sequence
+                    ObjectIdentifier(2.5.29.37)
+                    DER Octet String[22]
+                        301406082b0601050507030106082b06010505070302                        0++
+                Sequence
+                    ObjectIdentifier(2.5.29.14)
+                    DER Octet String[22]
+                        041455d9185fd21ccc01e158b4beabd9554201d72e02                        U_XUB.
+                Sequence
+                    ObjectIdentifier(2.5.29.35)
+                    DER Octet String[24]
+                        301680148418cc8534ecbc0c94942e08599cc7b2104e0a08                    04.YN
+                Sequence
+                    ObjectIdentifier(1.3.6.1.5.5.7.1.1)
+                    DER Octet String[111]
+                        306d302f06082b060105050730018623687474703a2f2f6f6373702e726f6f74    0m0/+0#http://ocsp.root
+                        6361312e616d617a6f6e74727573742e636f6d303a06082b0601050507300286    ca1.amazontrust.com0:+0
+                        2e687474703a2f2f6372742e726f6f746361312e616d617a6f6e74727573742e    .http://crt.rootca1.amazontrust.
+                        636f6d2f726f6f746361312e636572                                      com/rootca1.cer
+                Sequence
+                    ObjectIdentifier(2.5.29.31)
+                    DER Octet String[56]
+                        30363034a032a030862e687474703a2f2f63726c2e726f6f746361312e616d61    060420.http://crl.rootca1.ama
+                        7a6f6e74727573742e636f6d2f726f6f746361312e63726c                    zontrust.com/rootca1.crl
+                Sequence
+                    ObjectIdentifier(2.5.29.32)
+                    DER Octet String[12]
+                        300a3008060667810c010201                                            00g
+    Sequence
+        ObjectIdentifier(1.2.840.113549.1.1.11)
+        NULL
+    DER Bit String[256, 0]
+        068de5a6d9c0bedf3d8ccd20a7b5ee3affb259be3de24190d8ec4bce0cd75917    = :Y=AKY
+        8d67ef52eb93d91b7cdc1eacad1d54dcd6dfa59e7ebee3ed94b0055839d16e5a    gR|T~X9nZ
+        cbae6335237be134d0575cade169d26d5bcde8a94cb35862c8e65da072ac2835    c5#{4W\im[LXb]r(5
+        765063716dda0160240d6b619817c1502162ee80da77e5a48ea4ccba70597298    vPcqm`$kaP!bwpYr
+        5428988ae73901f02b59ef558e2ac43489314fe0349cf5ec3f00acf3779e09f2    T(9+YU*41O4?w
+        6764f07a9274b8120dcf71b9b5edab745505e22e18dc16fb1549470d89b8bbc6    gdztqtU.IG
+        88446a64d99a5f5e6c5aa319db201651bc62cf494b8fc27c2850e32c27c8e2ac    Djd_^lZ QbIK|(P,'
+        8e6fb3676f7213dbeccb48d6b95e8b4d9fda2bc7dafc648c32e5b52a5ed9f882    ogorH^M+d2*^
+

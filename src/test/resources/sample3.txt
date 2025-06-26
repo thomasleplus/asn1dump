@@ -1,0 +1,80 @@
+Sequence
+    Sequence
+        Tagged [CONTEXT 0]
+            Integer(2)
+        Integer(143266978916655856878034712317230054538369994)
+        Sequence
+            ObjectIdentifier(1.2.840.113549.1.1.11)
+            NULL
+        Sequence
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.6)
+                    PrintableString(US) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.10)
+                    PrintableString(Amazon) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.3)
+                    PrintableString(Amazon Root CA 1) 
+        Sequence
+            UTCTime(150526000000GMT+00:00) 
+            UTCTime(380117000000GMT+00:00) 
+        Sequence
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.6)
+                    PrintableString(US) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.10)
+                    PrintableString(Amazon) 
+            Set
+                Sequence
+                    ObjectIdentifier(2.5.4.3)
+                    PrintableString(Amazon Root CA 1) 
+        Sequence
+            Sequence
+                ObjectIdentifier(1.2.840.113549.1.1.1)
+                NULL
+            DER Bit String[270, 0]
+                3082010a0282010100b2788071ca78d5e371af478050747d6ed8d78876f49968    0xqxqGPt}nvh
+                f7582160f97484012fac022d86d3a0437a4eb2a4d036ba01be8ddb48c8071736    X!`t/-CzN6H6
+                4cf4ee8823c73eeb37f5b519f84968b0ded7b976381d619ea4fe8236a5e54a56    L#>7Ihv8a6JV
+                e445e1f9fdb416fa74da9c9b35392ffab02050066c7ad080b2a6f9afec47198f    Et59/ PlzG
+                503807dca2873958f8bad5a9f948673096ee94785e6f89a351c0308666a14566    P89XHg0x^oQ0fEf
+                ba54eba3c391f948dcffd1e8302d7d2d747035d78824f79ec4596ebb738717f2    TH0-}-tp5$Yns
+                324628b843fab71daacab4f29f240e2d4bf7715c5e69ffea9502cb388aae5038    2F(C$-Kq\^i8P8
+                6fdbfb2d621bc5c71e54e177e067c80f9c8723d63f40207f2080c4804c3e3b24    o-bTwg#?@  L>;$
+                268e04ae6c9ac8aa0d0203010001                                        &l
+        Tagged [CONTEXT 3]
+            Sequence
+                Sequence
+                    ObjectIdentifier(2.5.29.19)
+                    Boolean(true)
+                    DER Octet String[5]
+                        30030101ff                                                          0
+                Sequence
+                    ObjectIdentifier(2.5.29.15)
+                    Boolean(true)
+                    DER Octet String[4]
+                        03020186                                                            
+                Sequence
+                    ObjectIdentifier(2.5.29.14)
+                    DER Octet String[22]
+                        04148418cc8534ecbc0c94942e08599cc7b2104e0a08                        4.YN
+    Sequence
+        ObjectIdentifier(1.2.840.113549.1.1.11)
+        NULL
+    DER Bit String[256, 0]
+        98f2375a4190a11ac57651282036230eaee628bbaaf894ae48a4307f1bfc248d    7ZAvQ( 6#(H0$
+        4bb4c8a197f6b6f17a70c85393cc0828e39825cf23a4f9de21d37c8509ad4e9a    KzpS(%#!|N
+        753ac20b6a897876444718656c8d418e3b7f9acbf4b5a750d7052c37e8034bad    u:jxvDGelA;P,7K
+        e961a0026ef5f2f0c5b2ed5bb7dcfa945c779e13a57f52ad95f2f8933bde8b5c    an[\wR;\
+        5bca5a525b60af14f74befa3fb9f40956d3154fc42d3c7461f23add90f48709a    [ZR[`K@m1TBF#Hp
+        d9757871d1724334756e5759c2025c266029cf2319168e8843a5d4e4cb08fb23    uxqrC4unWY\&`)#C#
+        1143e843297262a1a95d5e08d490aeb8d8ce14c2d055f286f6c49343776661c0    CC)rb]^UCwfa
+        b9e841d7977860036e4a72aea5d17dba109e866c1b8ab95933f8ebc490bef1b9    Ax`nJr}lY3
+
