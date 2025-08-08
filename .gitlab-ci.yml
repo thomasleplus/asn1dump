@@ -2,6 +2,7 @@
 include:
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Security/SAST.gitlab-ci.yml
+  - template: Security/SAST-IaC.gitlab-ci.yml
 
 stages:
   - check
@@ -27,6 +28,12 @@ cache:
     - .m2/repository
 
 sast:
+  stage: check
+
+iac-sast:
+  stage: check
+
+kics-iac-sast:
   stage: check
 
 secret_detection:
