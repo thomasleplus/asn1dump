@@ -51,10 +51,10 @@ OSV scanner:
 
 maven check versions:
   image:
-    name: leplusorg/maven-check-versions:3.9.9@sha256:abdd53328be1c87d7bf21b868d47d7934b28dfc66e168d9625877616ab14d6da
+    name: leplusorg/maven-check-versions:3.9.11@sha256:cabe45dc45c644032ba61b2f43e304baf382e834efe76d74a81c666b893c5dc2
   stage: check
   variables:
-    IGNORED_VERSIONS: "(?i).+-(alpha|beta).+,(?i).+-m\\d+,(?i).+-rc\\d+"
+    MAVEN_CLI_EXTRA_OPTS: "-DprocessDependencyManagementTransitive=false -Dmaven.version.ignore=(?i).+-(alpha|beta).+,(?i).+-m\\d+,(?i).+-rc\\d+"
   script:
     - "/opt/maven-check-versions.sh"
   timeout: 10 minutes
