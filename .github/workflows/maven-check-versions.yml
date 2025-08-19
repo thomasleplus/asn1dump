@@ -12,7 +12,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Check the versions
         uses: docker://leplusorg/maven-check-versions:3.9.11@sha256:cabe45dc45c644032ba61b2f43e304baf382e834efe76d74a81c666b893c5dc2
         env:
