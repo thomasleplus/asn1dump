@@ -40,10 +40,16 @@ jobs:
     steps:
       - name: Set REPOSITORY
         shell: bash
-        run: echo "REPOSITORY=${GITHUB_REPOSITORY#*/}" >> "${GITHUB_ENV}"
+        run: |
+          set -euo pipefail
+          IFS=$'\n\t'
+          echo "REPOSITORY=${GITHUB_REPOSITORY#*/}" >> "${GITHUB_ENV}"
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Set SOURCE_DATE_EPOCH
-        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> "${GITHUB_ENV}"
+        run: |
+          set -euo pipefail
+          IFS=$'\n\t'
+          echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> "${GITHUB_ENV}"
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
         with:
@@ -52,6 +58,8 @@ jobs:
       - name: Build with Maven
         shell: bash
         run: |
+          set -euo pipefail
+          # Do not set IFS=$'\n\t', breaks ${MAVEN_CLI_OPTS}
           # shellcheck disable=SC2086
           ./mvnw ${MAVEN_CLI_OPTS} -DdependencyCheck.skip=true verify
       - name: Upload artifacts
@@ -62,4 +70,7 @@ jobs:
           path: target/
       - name: Clean up
         shell: bash
-        run: rm "${HOME}/.m2/settings.xml"
+        run: |
+          set -euo pipefail
+          IFS=$'\n\t'
+          rm "${HOME}/.m2/settings.xml"
