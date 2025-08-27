@@ -40,8 +40,7 @@ secret_detection:
   stage: check
 
 OSV scanner:
-  image:
-    name: golang:latest
+  image: golang:latest
   stage: check
   before_script:
     - "go install github.com/google/osv-scanner/cmd/osv-scanner@latest"
@@ -50,13 +49,10 @@ OSV scanner:
   timeout: 10 minutes
 
 maven check versions:
-  image:
-    name: leplusorg/maven-check-versions:3.9.11@sha256:cabe45dc45c644032ba61b2f43e304baf382e834efe76d74a81c666b893c5dc2
+  image: leplusorg/maven-check-versions:3.9.11@sha256:cabe45dc45c644032ba61b2f43e304baf382e834efe76d74a81c666b893c5dc2
   stage: check
   variables:
     MAVEN_CLI_EXTRA_OPTS: "-DprocessDependencyManagementTransitive=false -Dmaven.version.ignore=(?i).+-(alpha|beta).+,(?i).+-m\\d+,(?i).+-rc\\d+"
-  script:
-    - "/opt/maven-check-versions.sh"
   timeout: 10 minutes
 
 verify:jdk11:
