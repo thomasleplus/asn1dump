@@ -62,7 +62,7 @@ jobs:
         run: |
           set -euo pipefail
           # Do not set IFS=$'\n\t', breaks ${MAVEN_CLI_OPTS}
-          # shellcheck disable=SC2086
+          # shellcheck disable=SC2086 # [Double quote to prevent globbing and word splitting]: splitting is desired for MAVEN_CLI_OPTS
           ./mvnw ${MAVEN_CLI_OPTS} -DdependencyCheck.skip=true verify
       - name: Upload artifacts
         if: ${{ matrix.java == 11 }}
