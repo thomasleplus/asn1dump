@@ -66,5 +66,6 @@ jobs:
           LINTER_RULES_PATH: .
           DEFAULT_BRANCH: main
           FILTER_REGEX_EXCLUDE: "(gradlew|gradlew\\.bat|gradle/.*|mvnw|mvnw\\.cmd|\\.m2/.*|\\.mvn/.*)$"
+          JAVA_FILE_NAME: google_checks.xml
           ENFORCE_COMMITLINT_CONFIGURATION_CHECK: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
