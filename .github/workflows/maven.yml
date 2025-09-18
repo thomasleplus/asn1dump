@@ -31,7 +31,7 @@ env:
     -DdeployAtEnd=true
 
 jobs:
-  build:
+  maven:
     runs-on: ubuntu-latest
     strategy:
       matrix:
