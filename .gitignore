@@ -109,18 +109,6 @@ http-client.private.env.json
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# AWS
-.aws/
-
-# Git
-.git-credentials
-
-# Docker
-.docker/
-
-# SSH
-.ssh/
-
 # =========================
 # Operating System Files
 # =========================
@@ -180,6 +168,30 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Infrastructure
+# =========================
+
+# AWS
+.aws/
+
+# Azure
+.azure/
+
+# Docker
+.docker/
+
+# Git
+.git-credentials
+
+# Kubernetes
+.kube/
+
+# SSH
+.ssh/
+
+# Remote Desktop
+*.rdp
 
 # SARIF files
 *.sarif
