@@ -78,12 +78,6 @@ maven-check-versions:
     MAVEN_CLI_EXTRA_OPTS: "-DprocessDependencyManagementTransitive=false -Dmaven.version.ignore=(?i).+-(alpha|beta).+,(?i).+-m\\d+,(?i).+-rc\\d+"
   timeout: 10 minutes
 
-maven:jdk11:
-  stage: build
-  image: maven:3-openjdk-11-slim
-  script:
-    - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
-
 maven:jdk17:
   stage: build
   image: maven:3-openjdk-17-slim
@@ -96,8 +90,8 @@ maven:jdk21:
   script:
     - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
 
-maven:jdk24:
+maven:jdk25:
   stage: build
-  image: maven:3-eclipse-temurin-24-alpine
+  image: maven:3-eclipse-temurin-25-alpine
   script:
     - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
