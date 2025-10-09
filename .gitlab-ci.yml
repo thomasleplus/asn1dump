@@ -64,6 +64,7 @@ super-linter:
     LINTER_RULES_PATH: "."
     FILTER_REGEX_EXCLUDE: "^/tmp/lint/(gradlew|gradlew\\.bat|gradle/.*|mvnw|mvnw\\.cmd|\\.m2/.*|\\.mvn/.*)$"
     JAVA_FILE_NAME: google_checks.xml
+    BIOME_CONFIG_PATH: .biome.json
     ENFORCE_COMMITLINT_CONFIGURATION_CHECK: "true"
   before_script:
     - 'ln -s "$(pwd)" /tmp/lint'
