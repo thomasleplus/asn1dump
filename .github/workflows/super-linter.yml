@@ -71,6 +71,7 @@ jobs:
           FILTER_REGEX_EXCLUDE: "(gradlew|gradlew\\.bat|gradle/.*|mvnw|mvnw\\.cmd|\\.m2/.*|\\.mvn/.*)$"
           JAVA_FILE_NAME: google_checks.xml
           ENFORCE_COMMITLINT_CONFIGURATION_CHECK: true
+          TRIVY_SCANNERS: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && 'vuln,misconfig,secret' || 'misconfig,secret'}}
           BIOME_CONFIG_PATH: .biome.json
           GITHUB_ACTIONS_ZIZMOR_CONFIG_FILE: .zizmor.yml
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
