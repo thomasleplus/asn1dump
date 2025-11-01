@@ -58,14 +58,14 @@ super-linter:
       - "" # Entrypoint is overridden by GitLab anyway
   stage: check
   variables:
-    RUN_LOCAL: "true"
-    DEFAULT_BRANCH: "main"
-    VALIDATE_ALL_CODEBASE: "true"
-    LINTER_RULES_PATH: "."
-    FILTER_REGEX_EXCLUDE: "^/tmp/lint/(gradlew|gradlew\\.bat|gradle/.*|mvnw|mvnw\\.cmd|\\.m2/.*|\\.mvn/.*)$"
-    JAVA_FILE_NAME: google_checks.xml
     BIOME_CONFIG_PATH: .biome.json
     ENFORCE_COMMITLINT_CONFIGURATION_CHECK: "true"
+    FILTER_REGEX_EXCLUDE: "^/tmp/lint/(gradlew|gradlew\\.bat|gradle/.*|mvnw|mvnw\\.cmd|\\.m2/.*|\\.mvn/.*)$"
+    JAVA_FILE_NAME: google_checks.xml
+    LINTER_RULES_PATH: "."
+    RUN_LOCAL: "true"
+    USE_FIND_ALGORITHM: "true"
+    VALIDATE_ALL_CODEBASE: "true"
   before_script:
     - 'ln -s "$(pwd)" /tmp/lint'
   script:
