@@ -9,6 +9,7 @@ stages:
   - build
 
 variables:
+  GIT_DEPTH: 1
   SAST_SEMGREP_METRICS: false
   SEMGREP_SEND_METRICS: off
   MAVEN_OPTS: >
