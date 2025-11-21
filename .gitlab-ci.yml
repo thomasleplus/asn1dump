@@ -8,6 +8,9 @@ stages:
   - check
   - build
 
+default:
+  interruptible: true
+
 variables:
   GIT_DEPTH: 1
   SAST_SEMGREP_METRICS: false
@@ -26,10 +29,6 @@ variables:
     -DinstallAtEnd=true
     -DdeployAtEnd=true
 
-cache:
-  paths:
-    - .m2/repository
-
 sast:
   stage: check
 
@@ -44,12 +43,23 @@ secret_detection:
 
 osv-scanner:
   allow_failure: true
-  image: golang:latest
+  image:
+    name: golang:alpine
+    entrypoint:
+      - "" # Entrypoint is overridden by GitLab anyway
   stage: check
+  cache:
+    key: osv-scanner
+    paths:
+      - .cache/gopath/pkg/mod
+      - .cache/gocache
+  variables:
+    GOPATH: ${CI_PROJECT_DIR}/.cache/gopath
+    GOCACHE: ${CI_PROJECT_DIR}/.cache/gocache
   before_script:
     - "go install github.com/google/osv-scanner/cmd/osv-scanner@latest"
   script:
-    - 'PATH="${PATH}:$(go env GOPATH)/bin" osv-scanner -r .'
+    - 'PATH="${PATH}:${GOPATH}/bin" osv-scanner -r .'
   timeout: 10 minutes
 
 super-linter:
@@ -74,26 +84,54 @@ super-linter:
   timeout: 10 minutes
 
 maven-check-versions:
-  image: leplusorg/maven-check-versions:3.9.11@sha256:cabe45dc45c644032ba61b2f43e304baf382e834efe76d74a81c666b893c5dc2
+  image:
+    name: leplusorg/maven-check-versions:3.9.11@sha256:cabe45dc45c644032ba61b2f43e304baf382e834efe76d74a81c666b893c5dc2
+    entrypoint:
+      - "" # Entrypoint is overridden by GitLab anyway
   stage: check
+  cache:
+    key: maven
+    paths:
+      - .m2/repository
   variables:
     MAVEN_CLI_EXTRA_OPTS: "-DprocessDependencyManagementTransitive=false -Dmaven.version.ignore=(?i).+-(alpha|beta).+,(?i).+-m\\d+,(?i).+-rc\\d+"
   timeout: 10 minutes
 
 maven:jdk17:
   stage: build
-  image: maven:3-openjdk-17-slim
+  image:
+    name: maven:3-openjdk-17-slim
+    entrypoint:
+      - "" # Entrypoint is overridden by GitLab anyway
+  cache:
+    key: maven
+    paths:
+      - .m2/repository
   script:
     - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
 
 maven:jdk21:
   stage: build
-  image: maven:3-eclipse-temurin-21-alpine
+  image:
+    name: maven:3-eclipse-temurin-21-alpine
+    entrypoint:
+      - "" # Entrypoint is overridden by GitLab anyway
+  cache:
+    key: maven
+    paths:
+      - .m2/repository
   script:
     - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
 
 maven:jdk25:
   stage: build
-  image: maven:3-eclipse-temurin-25-alpine
+  image:
+    name: maven:3-eclipse-temurin-25-alpine
+    entrypoint:
+      - "" # Entrypoint is overridden by GitLab anyway
+  cache:
+    key: maven
+    paths:
+      - .m2/repository
   script:
     - "./mvnw $MAVEN_CLI_OPTS -DdependencyCheck.skip=true verify"
