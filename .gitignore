@@ -90,6 +90,7 @@ fabric.properties
 http-client.private.env.json
 
 # Android studio 3.1+ serialized cache file
+# codespell:ignore ser
 .idea/caches/build_file_checksums.ser
 
 # Apifox Helper cache
