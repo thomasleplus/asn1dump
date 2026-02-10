@@ -64,7 +64,7 @@ osv-scanner:
 
 super-linter:
   image:
-    name: ghcr.io/super-linter/super-linter:v8.2.1@sha256:6331793e23be44827ade3bfcd27c2c3f0870c663fb2b118db38035f4e59ab136
+    name: ghcr.io/super-linter/super-linter:v8.5.0@sha256:6831c0a801d353b510e4e468a3209a8a48bf0102e193d5c7e94e57667fdf64eb
     entrypoint:
       - "" # Entrypoint is overridden by GitLab anyway
   stage: check
