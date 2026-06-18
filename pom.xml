@@ -172,14 +172,14 @@
         </executions>
       </plugin>
       <plugin>
-	<groupId>org.owasp</groupId>
+      <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
         <version>${dependencyCheck.version}</version>
         <configuration>
           <failBuildOnCVSS>${dependencyCheck.threshold}</failBuildOnCVSS>
-	  <failOnError>true</failOnError>
-	  <nvdApiKey>${dependencyCheck.NVDApiKey}</nvdApiKey>
-	  <skip>${dependencyCheck.skip}</skip>
+        <failOnError>true</failOnError>
+        <nvdApiKey>${dependencyCheck.NVDApiKey}</nvdApiKey>
+        <skip>${dependencyCheck.skip}</skip>
         </configuration>
         <executions>
           <execution>
@@ -205,9 +205,9 @@
         </executions>
       </plugin>
       <plugin>
-	<groupId>com.github.spotbugs</groupId>
-	<artifactId>spotbugs-maven-plugin</artifactId>
-	<version>4.10.2.0</version>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-maven-plugin</artifactId>
+      <version>4.10.2.0</version>
         <configuration>
           <plugins>
             <plugin>
@@ -255,8 +255,8 @@
         <artifactId>dependency-check-maven</artifactId>
         <version>${dependencyCheck.version}</version>
         <configuration>
-	  <nvdApiKey>${dependencyCheck.NVDApiKey}</nvdApiKey>
-	  <skip>${dependencyCheck.skip}</skip>
+        <nvdApiKey>${dependencyCheck.NVDApiKey}</nvdApiKey>
+        <skip>${dependencyCheck.skip}</skip>
         </configuration>
         <reportSets>
           <reportSet>
