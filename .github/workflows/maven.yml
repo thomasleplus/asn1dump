@@ -58,6 +58,16 @@ jobs:
         with:
           distribution: temurin
           java-version: ${{ matrix.java }}
+      - name: Cache Maven dependencies
+        # The build redirects the local repo to .m2/repository (see
+        # -Dmaven.repo.local in MAVEN_OPTS), so cache it at the location the
+        # build actually uses rather than setup-java's default ~/.m2/repository.
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: .m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Build with Maven
         shell: bash
         run: |
