@@ -118,6 +118,7 @@ hs_err_pid*
 
 .config/
 *.bak
+*-e
 *~
 \#*\#
 .\#*
