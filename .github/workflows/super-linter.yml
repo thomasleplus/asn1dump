@@ -59,6 +59,41 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      #############################################################
+      # Give Trivy a local Maven repository to resolve POMs from  #
+      # (see TRIVY_OFFLINE_SCAN below). Only the runs that enable #
+      # Trivy's vulnerability scanner need it.                    #
+      #############################################################
+      - name: Restore Maven dependencies
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        # Same path and key as the Maven workflow, so this reuses the cache
+        # that workflow saves. Restore only: this workflow never saves a
+        # cache of its own.
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Move Maven dependencies where Trivy looks for them
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          IFS=$'\n\t'
+          if [ ! -d .m2/repository ]; then
+            echo "No Maven cache restored: Trivy will report dependencies without their versions"
+            exit 0
+          fi
+          # super-linter is a Docker action, and the runner mounts
+          # "${RUNNER_TEMP}/_github_home" as the home directory inside the
+          # container, which is where Trivy looks for .m2/repository. Moving
+          # the dependencies out of the workspace also keeps Trivy from
+          # scanning the cached jars themselves.
+          mkdir -p "${RUNNER_TEMP}/_github_home/.m2"
+          mv .m2/repository "${RUNNER_TEMP}/_github_home/.m2/repository"
+
       ################################
       # Run Linter against code base #
       ################################
@@ -76,6 +111,17 @@ jobs:
           JAVA_FILE_NAME: google_checks.xml
           LINTER_RULES_PATH: .
           SAVE_SUPER_LINTER_SUMMARY: true
+          # Trivy's pom.xml analyzer resolves parent and BOM POMs from Maven
+          # Central even when the vuln scanner is off (Trivy 0.71.1, shipped
+          # with super-linter v8.7.0), and Maven Central answers "429 Too Many
+          # Requests" to Trivy's user agent from any IP, which aborts the whole
+          # run. Keep this unconditional rather than tying it to TRIVY_SCANNERS
+          # below: the runs that enable the vuln scanner get the same 429, so
+          # online resolution never succeeds there either. Trivy still resolves
+          # parent and BOM POMs from the local repository restored above, and a
+          # cache miss only costs coverage (a warning) instead of failing the
+          # run.
+          TRIVY_OFFLINE_SCAN: true
           TRIVY_SCANNERS: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && 'vuln,misconfig,secret' || 'misconfig,secret'}}
           VALIDATE_ALL_CODEBASE: true
           # Only lint commit messages when the run was triggered by a commit
