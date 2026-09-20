@@ -64,12 +64,24 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.minVersion>17</java.minVersion>
     <dependencyCheck.version>13.0.0</dependencyCheck.version>
-    <dependencyCheck.skip>false</dependencyCheck.skip>
+    <!-- Off unless an NVD API key reaches the build; the nvd-api-key profile
+         below turns it on. The scan genuinely cannot run without one: the NVD
+         API rejects an empty key outright rather than falling back to
+         anonymous access ("Invalid API Key, length of 0 too short"), and
+         keyless access is throttled to 5 requests per rolling 30s, which is
+         far too slow to populate the vulnerability cache from cold. Skipping
+         is the honest default - handed no key the scan does not degrade, it
+         fails the build without having checked anything. A key is free from
+         https://nvd.nist.gov/developers/request-an-api-key; see the profile
+         for how to supply it. -->
+    <dependencyCheck.skip>true</dependencyCheck.skip>
     <dependencyCheck.threshold>7</dependencyCheck.threshold>
-    <!-- Read the NVD API key from the environment so the secret is never
-         passed on the command line (visible in the process list). Can still
-         be overridden with -DdependencyCheck.NVDApiKey=... if needed. -->
-    <dependencyCheck.NVDApiKey>${env.NVD_API_KEY}</dependencyCheck.NVDApiKey>
+    <!-- Empty on purpose, and only ever read when the scan is skipped: the
+         nvd-api-key profile below supplies the real value from the
+         environment. An empty key is worse than no key at all - that is the
+         NVD error quoted above - so nothing here ever hands the plugin a
+         blank credential. -->
+    <dependencyCheck.NVDApiKey></dependencyCheck.NVDApiKey>
   </properties>
   <dependencies>
     <dependency>
@@ -268,4 +280,30 @@
       </plugin>
     </plugins>
   </reporting>
+  <profiles>
+    <!-- Enables the dependency-check scan, reading the key from the
+         environment so the secret is never passed on the command line, where
+         the process list would show it.
+
+         Activation is by presence rather than value, and the empty case is
+         the point: Maven activates a valueless <property> only when the
+         property is non-empty, and CI expands an unset secret or variable to
+         the empty string. So a fork, or a repository where the secret was
+         never added, leaves the scan off instead of failing the build with a
+         blank credential.
+
+         To run it locally: NVD_API_KEY=... ./mvnw verify. To force it on with
+         the key supplied some other way (a settings.xml server entry, say):
+         -DdependencyCheck.skip=false. -->
+    <profile>
+      <id>nvd-api-key</id>
+      <activation>
+        <property><name>env.NVD_API_KEY</name></property>
+      </activation>
+      <properties>
+        <dependencyCheck.skip>false</dependencyCheck.skip>
+        <dependencyCheck.NVDApiKey>${env.NVD_API_KEY}</dependencyCheck.NVDApiKey>
+      </properties>
+    </profile>
+  </profiles>
 </project>
